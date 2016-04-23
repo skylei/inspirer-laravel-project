@@ -18,6 +18,7 @@ class CreateAdminGroupsTable extends Migration
             $table->string('display_name')->comment('组名称');
             $table->text('description')->comment('组描述');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -19,6 +19,7 @@ class CreateAdministratorsTable extends Migration
             $table->string('email')->nullable()->comment('管理员邮件箱');
             $table->string('password')->comment('密码');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

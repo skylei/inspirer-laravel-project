@@ -11,24 +11,46 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
+/**
+ * Class Administrator
+ *
+ * @package App\Components\UserSystem
+ */
 class Administrator extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use SoftDeletes, Authenticatable, Authorizable, SetPasswordTrait;
-    
+
+    /**
+     * @var array
+     */
     protected $fillable = ['name', 'email'];
-    
+
+    /**
+     * @var array
+     */
     protected $hidden = ['password'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function group()
     {
         return $this->belongsTo(AdminGroup::class, 'group_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function operationalLog()
     {
         return $this->hasMany(AdminOperationalLog::class, 'operator_id', 'id');
     }
 
+    /**
+     * @param $name
+     *
+     * @return $this
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -36,6 +58,11 @@ class Administrator extends Model implements AuthenticatableContract, Authorizab
         return $this;
     }
 
+    /**
+     * @param $email
+     *
+     * @return $this
+     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -43,6 +70,11 @@ class Administrator extends Model implements AuthenticatableContract, Authorizab
         return $this;
     }
 
+    /**
+     * @param $group
+     *
+     * @return $this
+     */
     public function setGroup($group)
     {
         if ($group instanceof AdminGroup) {
