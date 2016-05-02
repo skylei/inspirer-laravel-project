@@ -18,6 +18,8 @@ class CreateAdministratorsTable extends Migration
             $table->string('name')->unique()->comment('用户名');
             $table->string('email')->nullable()->comment('管理员邮件箱');
             $table->string('password')->comment('密码');
+            $table->timestamp('last_login')->comment('最后登录时间');
+            $table->integer('login_times')->unsigned()->default(0)->comment('登录次数');
             $table->timestamps();
             $table->softDeletes();
         });

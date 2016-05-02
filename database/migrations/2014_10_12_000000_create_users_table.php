@@ -17,6 +17,8 @@ class CreateUsersTable extends Migration
             $table->string('name')->unique()->comment('用户名称，唯一值，一般不建议作为登录凭据');
             $table->string('email')->unique()->comment('用户邮件箱，唯一值，可作为登录凭据');
             $table->string('password')->nullable()->comment('密码');
+            $table->timestamp('last_login')->comment('最后登录时间');
+            $table->integer('login_times')->unsigned()->default(0)->comment('登录次数');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

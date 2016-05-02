@@ -2,6 +2,9 @@
 
 namespace App\Components\UserSystem;
 
+use App\Components\UserSystem\Contracts\UserModel;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -10,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @package App\Components\UserSystem
  */
-class User extends Authenticatable
+class User extends Authenticatable implements UserModel
 {
     use SoftDeletes, SetPasswordTrait;
     
@@ -42,6 +45,16 @@ class User extends Authenticatable
         $this->name = $name;
         
         return $this;
+    }
+
+    public function afterLogin(Login $login)
+    {
+
+    }
+
+    public function afterLogout(Logout $logout)
+    {
+        
     }
 
     /**

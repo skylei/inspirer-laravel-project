@@ -158,6 +158,8 @@ return [
         App\Common\Providers\EventServiceProvider::class,
         App\Common\Providers\RouteServiceProvider::class,
 
+        App\Components\UserSystem\UserSystemProvider::class,
+
     ],
 
     /*
