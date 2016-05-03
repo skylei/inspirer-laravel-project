@@ -49,12 +49,14 @@ class User extends Authenticatable implements UserModel
 
     public function afterLogin(Login $login)
     {
-
+        $this->increment('login_times');
+        $this->last_login = new \DateTime();
+        $this->save();
     }
 
     public function afterLogout(Logout $logout)
     {
-        
+        // 
     }
 
     /**
