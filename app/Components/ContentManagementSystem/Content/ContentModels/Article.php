@@ -8,11 +8,12 @@
 
 namespace App\Components\ContentManagementSystem\Content\ContentModels;
 
+use App\Components\ContentManagementSystem\Content\ContentModel;
 use App\Components\ContentManagementSystem\Content\PolymorphicRelationTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Article extends Model
+class Article extends Model implements ContentModel
 {
     use SoftDeletes, PolymorphicRelationTrait;
 }
