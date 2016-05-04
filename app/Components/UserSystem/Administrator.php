@@ -4,6 +4,9 @@ namespace App\Components\UserSystem;
 
 use App\Components\UserSystem\AdministratorModules\AdminGroup;
 use App\Components\UserSystem\AdministratorModules\AdminOperationalLog;
+use App\Components\UserSystem\Contracts\UserModel;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Auth\Authenticatable;
@@ -16,7 +19,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
  *
  * @package App\Components\UserSystem
  */
-class Administrator extends Model implements AuthenticatableContract, AuthorizableContract
+class Administrator extends Model implements AuthenticatableContract, AuthorizableContract, UserModel
 {
     use SoftDeletes, Authenticatable, Authorizable, SetPasswordTrait;
 
@@ -85,5 +88,20 @@ class Administrator extends Model implements AuthenticatableContract, Authorizab
         }
 
         return $this;
+    }
+
+    public function afterLogin(Login $login)
+    {
+        $this->increment('login_times');
+        $this->last_login = $date = new \DateTime();
+        $this->save();
+
+        (new AdminOperationalLog())->info(trans('messages.user-system.log.login'),
+                                          [$this->name, $date->format('Y-m-d H:i:s')])->save();
+    }
+
+    public function afterLogout(Logout $logout)
+    {
+        //
     }
 }
