@@ -13,7 +13,7 @@ class ProjectInitializeMigration extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name')->unique()->comment('用户名称，唯一值，一般不建议作为登录凭据');
             $table->string('email')->unique()->comment('用户邮件箱，唯一值，可作为登录凭据');
             $table->string('password')->nullable()->comment('密码');
@@ -53,11 +53,51 @@ class ProjectInitializeMigration extends Migration
 
         Schema::create('admin_operational_logs', function (Blueprint $table) {
             $table->engine = 'ARCHIVE';
-            $table->increments('id');
-            $table->integer('administrator_id')->comment('操作者 ID');
+            $table->bigIncrements('id');
+            $table->integer('operator_id')->comment('操作者 ID');
             $table->string('level')->comment('日志级别');
             $table->string('message', 2048)->comment('日志信息');
             $table->timestamps();
+        });
+        
+        Schema::create('content_categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('parent_id')->unsigned()->default(0)->comment('父节点 ID');
+            $table->string('name')->nullable()->unique()->comment('分类节点名，唯一标识符');
+            $table->string('display_name')->index()->comment('分类名');
+            $table->text('description')->comment('分类描述');
+            $table->string('keywords')->nullable()->comment('分类关键字');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('contents', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('node_id')->unsigned()->comment('节点 ID，全局唯一存储节点');
+            $table->string('node_type')->comment('节点类型');
+            $table->bigInteger('content_model_id')->unsigned()->comment('内容模型 ID');
+            $table->string('content_model_type')->comment('内容模型类型');
+            $table->bigInteger('publisher_id')->unsgined()->nullable()->comment('发布者 ID');
+            $table->string('publisher_type')->nullable()->comment('发布者类型');
+            $table->string('title')->index()->nullable()->comment('内容标题');
+            $table->text('description')->comment('内容描述');
+            $table->string('keywords')->index()->nullable()->comment('内容关键字');
+            $table->string('name')->unique()->nullable()->comment('内容名称，唯一标识');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('articles', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('cover')->nullable()->comment('封面');
+            $table->string('author')->nullable()->comment('作者名称');
+            $table->mediumText('content')->comment('内容');
+            $table->string('source')->nullable()->comment('内容来源');
+            $table->string('source_name')->nullable()->comment('内容来源名称');
+            $table->timestamp('published_at')->nullable()->comment('发布时间');
+            $table->timestamp('expired_at')->nullable()->comment('过期时间');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -73,5 +113,8 @@ class ProjectInitializeMigration extends Migration
         Schema::drop('administrators');
         Schema::drop('admin_groups');
         Schema::drop('admin_operational_logs');
+        Schema::drop('content_categories');
+        Schema::drop('contents');
+        Schema::drop('articles');
     }
 }

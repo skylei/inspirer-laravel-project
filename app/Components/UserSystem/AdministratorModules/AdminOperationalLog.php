@@ -34,7 +34,7 @@ class AdminOperationalLog extends Model implements LoggerInterface
         $log = new self;
 
         if (is_null($operator)) {
-            $operator = \Auth::guard('administrators')->user();
+            $operator = \Auth::guard('admin')->user();
         }
 
         $log->operator()->associate($operator);

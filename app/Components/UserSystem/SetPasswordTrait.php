@@ -23,7 +23,7 @@ trait SetPasswordTrait
      */
     public function setPasswordAttribute($password)
     {
-        $this->attribute['password'] = \Hash::make($password);
+        $this->attributes['password'] = \Hash::make($password);
         
         return $this;
     }
