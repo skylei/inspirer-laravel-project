@@ -23,15 +23,24 @@ class Content extends Model
     protected $modelInstance;
 
     /**
-     * @var Model
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    protected $nodeInstance;
-
     public function contentModel()
     {
         return $this->morphTo('content_model', 'content_model_type', 'content_model_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function publisher()
+    {
+        return $this->morphTo();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
     public function node()
     {
         return $this->morphTo();
@@ -104,7 +113,7 @@ class Content extends Model
      */
     public function setNode($node)
     {
-        $this->nodeInstance = $node;
+        $this->node()->associate($node);
 
         return $this;
     }
@@ -132,8 +141,6 @@ class Content extends Model
             if (!$this->modelInstance->exists) {
                 $this->modelInstance->save();
             }
-
-            $this->node()->associate($this->nodeInstance);
 
             $this->contentModel()->associate($this->modelInstance);
 
