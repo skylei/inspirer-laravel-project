@@ -94,7 +94,7 @@ class ProjectInitializeMigration extends Migration
             $table->mediumText('content')->comment('内容');
             $table->string('source')->nullable()->comment('内容来源');
             $table->string('source_name')->nullable()->comment('内容来源名称');
-            $table->timestamp('published_at')->nullable()->comment('发布时间');
+            $table->timestamp('published_at')->nullable()->comment('发布时间')->useCurrent(true);
             $table->timestamp('expired_at')->nullable()->comment('过期时间');
             $table->timestamps();
             $table->softDeletes();

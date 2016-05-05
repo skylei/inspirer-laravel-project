@@ -13,12 +13,18 @@ use App\Components\UserSystem\Contracts\UserModel;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
 class UserSystemProvider extends ServiceProvider
 {
     public function boot(Dispatcher $events)
     {
+        Relation::morphMap([
+            'UserSystem\User'          => User::class,
+            'UserSystem\Administrator' => Administrator::class,
+        ]);
+
         $events->listen(Login::class, function (Login $login) {
             if ($login->user instanceof UserModel) {
                 $login->user->afterLogin($login);
@@ -31,7 +37,7 @@ class UserSystemProvider extends ServiceProvider
             }
         });
     }
-    
+
     public function register()
     {
         //

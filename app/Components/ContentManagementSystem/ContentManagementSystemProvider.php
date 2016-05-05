@@ -19,12 +19,11 @@ class ContentManagementSystemProvider extends ServiceProvider
     public function boot()
     {
         Relation::morphMap([
-            Article::class => 'Article',
-
-            ContentCategory::class => 'ArticleCategory',
+            'CMS\Article'         => Article::class,
+            'CMS\ContentCategory' => ContentCategory::class,
         ]);
     }
-    
+
     public function register()
     {
         //

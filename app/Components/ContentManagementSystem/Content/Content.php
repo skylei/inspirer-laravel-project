@@ -47,6 +47,18 @@ class Content extends Model
     }
 
     /**
+     * @param $publisher
+     *
+     * @return Content
+     */
+    public function setPublisher($publisher)
+    {
+        $this->publisher()->associate($publisher);
+
+        return $this;
+    }
+
+    /**
      * @param string $title
      *
      * @return Content
@@ -128,7 +140,7 @@ class Content extends Model
     {
         $modelInstance = new $model;
 
-        call_user_func($callback, $model);
+        call_user_func($callback, $modelInstance);
 
         $this->setModel($modelInstance);
 

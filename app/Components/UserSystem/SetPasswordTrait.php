@@ -19,7 +19,7 @@ trait SetPasswordTrait
     /**
      * @param $password
      *
-     * @return $this
+     * @return self
      */
     public function setPasswordAttribute($password)
     {
@@ -31,7 +31,7 @@ trait SetPasswordTrait
     /**
      * @param $password
      *
-     * @return $this
+     * @return self
      */
     public function setPassword($password)
     {

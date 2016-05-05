@@ -159,6 +159,7 @@ return [
         App\Common\Providers\RouteServiceProvider::class,
 
         App\Components\UserSystem\UserSystemProvider::class,
+        App\Components\ContentManagementSystem\ContentManagementSystemProvider::class
 
     ],
 

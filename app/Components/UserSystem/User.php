@@ -2,6 +2,7 @@
 
 namespace App\Components\UserSystem;
 
+use App\Components\ContentManagementSystem\Content\PublisherTrait;
 use App\Components\UserSystem\Contracts\UserModel;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
@@ -15,7 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable implements UserModel
 {
-    use SoftDeletes, SetPasswordTrait;
+    use SoftDeletes, SetPasswordTrait, PublisherTrait;
     
     /**
      * The attributes that are mass assignable.
@@ -38,7 +39,7 @@ class User extends Authenticatable implements UserModel
     /**
      * @param $name
      *
-     * @return $this
+     * @return User
      */
     public function setName($name)
     {
@@ -62,7 +63,7 @@ class User extends Authenticatable implements UserModel
     /**
      * @param $email
      *
-     * @return $this
+     * @return User
      */
     public function setEmail($email)
     {
