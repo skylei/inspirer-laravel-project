@@ -27,11 +27,17 @@ class UserSystemProvider extends ServiceProvider
         ]);
 
         $this->app->make('auth')->extend('inspirer-session', function ($app, $name, array $config) {
-            return new InspirerSessionGuard(
+            $inspirerSessionGuard = new InspirerSessionGuard(
                 $name,
                 $app->make('auth')->createUserProvider($config['provider']),
                 $app['session.store']
             );
+
+            $inspirerSessionGuard->setDispatcher($app['events']);
+            $inspirerSessionGuard->setCookieJar($app['cookie']);
+            $inspirerSessionGuard->setRequest($app->refresh('request', $inspirerSessionGuard, 'setRequest'));
+
+            return $inspirerSessionGuard;
         });
 
         $events->listen(Login::class, function (Login $login) {

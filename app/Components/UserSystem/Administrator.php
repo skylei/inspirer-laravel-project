@@ -114,7 +114,7 @@ class Administrator extends Model implements AuthenticatableContract, Authorizab
 
     public function attemptFailed(AttemptFailed $failed)
     {
-        (new AdminOperationalLog())->info(trans('messages.user-system.log.attempt-failed'),
+        (new AdminOperationalLog())->alert(trans('messages.user-system.log.attempt-failed'),
             [$failed->user->getUserAccount(), (new \DateTime())->format('Y-m-d H:i:s')])->save();
     }
 }

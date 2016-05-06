@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Components\UserSystem\User;
@@ -40,4 +39,15 @@ class UserSystemTest extends TestCase
         $this->seeInDatabase('admin_operational_logs', ['level' => 'info', 'operator_id' => $admin->id]);
         $this->assertEquals(1, $admin->login_times - $times);
     }
+
+    public function testAttemptFailed()
+    {
+        $this->makeAdmin();
+
+        Auth::guard('admin')->attempt(['name' => 'test', 'password' => '1234567']);
+
+        $this->seeInDatabase('admin_operational_logs', ['level' => 'alert', 'operator_id' => null]);
+    }
+
+
 }

@@ -54,7 +54,7 @@ class ProjectInitializeMigration extends Migration
         Schema::create('admin_operational_logs', function (Blueprint $table) {
             $table->engine = 'ARCHIVE';
             $table->bigIncrements('id');
-            $table->integer('operator_id')->comment('操作者 ID');
+            $table->integer('operator_id')->nullable()->comment('操作者 ID');
             $table->string('level')->comment('日志级别');
             $table->string('message', 2048)->comment('日志信息');
             $table->timestamps();
