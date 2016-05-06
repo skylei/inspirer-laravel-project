@@ -37,12 +37,12 @@ return [
 
     'guards' => [
         'site' => [
-            'driver'   => 'session',
+            'driver'   => 'inspirer-session',
             'provider' => 'users',
         ],
 
         'admin' => [
-            'driver'   => 'session',
+            'driver'   => 'inspirer-session',
             'provider' => 'administrators',
         ],
 

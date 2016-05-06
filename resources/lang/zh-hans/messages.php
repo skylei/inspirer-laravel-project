@@ -9,7 +9,8 @@
 return [
     'user-system' => [
         'log' => [
-            'login' => '账户 %s 于 %s 通过认证并登录',
-        ]
-    ]
+            'login'          => '账户 %s 于 %s 通过认证并登录',
+            'attempt-failed' => '账户 %s 于 %s 尝试登录失败',
+        ],
+    ],
 ];

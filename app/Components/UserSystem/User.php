@@ -4,6 +4,7 @@ namespace App\Components\UserSystem;
 
 use App\Components\ContentManagementSystem\Content\PublisherTrait;
 use App\Components\UserSystem\Contracts\UserModel;
+use App\Components\UserSystem\Events\AttemptFailed;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -58,6 +59,16 @@ class User extends Authenticatable implements UserModel
     public function afterLogout(Logout $logout)
     {
         // 
+    }
+
+    public function attemptFailed(AttemptFailed $failed)
+    {
+        //
+    }
+
+    public function getUserAccount()
+    {
+        return $this->email;
     }
 
     /**

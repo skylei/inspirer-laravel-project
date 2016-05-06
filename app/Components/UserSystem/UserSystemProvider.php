@@ -10,6 +10,7 @@ namespace App\Components\UserSystem;
 
 
 use App\Components\UserSystem\Contracts\UserModel;
+use App\Components\UserSystem\Events\AttemptFailed;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -25,6 +26,14 @@ class UserSystemProvider extends ServiceProvider
             'UserSystem\Administrator' => Administrator::class,
         ]);
 
+        $this->app->make('auth')->extend('inspirer-session', function ($app, $name, array $config) {
+            return new InspirerSessionGuard(
+                $name,
+                $app->make('auth')->createUserProvider($config['provider']),
+                $app['session.store']
+            );
+        });
+
         $events->listen(Login::class, function (Login $login) {
             if ($login->user instanceof UserModel) {
                 $login->user->afterLogin($login);
@@ -34,6 +43,12 @@ class UserSystemProvider extends ServiceProvider
         $events->listen(Logout::class, function (Logout $logout) {
             if ($logout->user instanceof UserModel) {
                 $logout->user->afterLogout($logout);
+            }
+        });
+
+        $events->listen(AttemptFailed::class, function (AttemptFailed $attemptFailed) {
+            if ($attemptFailed->user instanceof UserModel) {
+                $attemptFailed->user->attemptFailed($attemptFailed);
             }
         });
     }

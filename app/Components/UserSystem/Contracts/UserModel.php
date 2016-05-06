@@ -9,6 +9,7 @@
 namespace App\Components\UserSystem\Contracts;
 
 
+use App\Components\UserSystem\Events\AttemptFailed;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 
@@ -32,4 +33,18 @@ interface UserModel
      * @return mixed
      */
     public function afterLogout(Logout $logout);
+
+    /**
+     * @param AttemptFailed $failed
+     *
+     * @return mixed
+     */
+    public function attemptFailed(AttemptFailed $failed);
+
+    /**
+     * 获取用户用于标识的账号
+     * 
+     * @return mixed
+     */
+    public function getUserAccount();
 }
