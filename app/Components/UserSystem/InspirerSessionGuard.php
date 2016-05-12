@@ -11,8 +11,20 @@ namespace App\Components\UserSystem;
 
 use Illuminate\Auth\SessionGuard;
 
+/**
+ * Class InspirerSessionGuard
+ *
+ * @package App\Components\UserSystem
+ */
 class InspirerSessionGuard extends SessionGuard
 {
+    /**
+     * @param array $credentials
+     * @param bool  $remember
+     * @param bool  $login
+     *
+     * @return bool
+     */
     public function attempt(array $credentials = [], $remember = false, $login = true)
     {
         $this->fireAttemptEvent($credentials, $remember, $login);
@@ -32,6 +44,12 @@ class InspirerSessionGuard extends SessionGuard
         return false;
     }
 
+    /**
+     * @param array $credentials
+     * @param       $name
+     * @param       $user
+     * @param       $login
+     */
     public function fireAttemptFailedEvent(array $credentials, $name, $user, $login)
     {
         if (isset($this->events)) {
