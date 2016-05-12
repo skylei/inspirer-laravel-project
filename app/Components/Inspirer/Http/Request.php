@@ -12,8 +12,11 @@ use Illuminate\Http\Request as LaravelRequest;
 
 class Request extends LaravelRequest
 {
+    /**
+     * @return \hisorange\BrowserDetect\Parser
+     */
     public function detect()
     {
-        
+        return app('browser-detect.parser');
     }
 }

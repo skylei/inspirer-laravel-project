@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use Illuminate\Http\Request;
+use App\Components\Inspirer\Http\Request;
 
 use DummyRootNamespaceHttp\Requests;
 use DummyExtendClassFullName;
