@@ -35,8 +35,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map(Router $router)
     {
-        $router->group(['namespace' => $this->namespace], function ($router) {
+        $router->group(['namespace' => $this->namespace], function (Router $router) {
             require app_path('Http/Routes/common.php');
+            
+            $router->group(['namespace' => 'InspirerBlog'], function () {
+                require app_path('Http/Routes/InspirerBlog/admin.php');
+            });
         });
     }
 }

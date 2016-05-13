@@ -13,10 +13,16 @@ class GateController extends Controller
     {
         if (Auth::guard('admin')->attempt($request->only(['name', 'password']), $request->input('remember', false))) {
             if ($request->ajax()) {
-                
+                return api_success();
             } else {
-                
+                return redirect()->route('inspirer-blog.admin.home'); 
             }
+        }
+        
+        if ($request->ajax()) {
+            return api_fail('200001');
+        } else {
+            return back()->withErrors(response_message('200001'));
         }
     }
 }

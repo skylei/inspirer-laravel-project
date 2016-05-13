@@ -31,13 +31,4 @@ interface ApiHandleContract
      * @return \Symfony\Component\HttpFoundation\Response|\Illuminate\Http\Response
      */
     public function fail($code = null, $message = null);
-
-    /**
-     * 设置响应实例
-     * 
-     * @param ResponseFactory $response
-     *
-     * @return void
-     */
-    public function setResponseInstance($response);
 }

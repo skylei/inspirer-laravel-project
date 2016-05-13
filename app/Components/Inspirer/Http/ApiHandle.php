@@ -23,11 +23,6 @@ class ApiHandle implements ApiHandleContract
     const DEFAULT_ERROR_HTTP_CODE = 500;
 
     /**
-     * @var ResponseFactory
-     */
-    protected $response;
-
-    /**
      * @var null
      */
     protected $body;
@@ -138,39 +133,27 @@ class ApiHandle implements ApiHandleContract
             $code = self::DEFAULT_ERROR_CODE;
         }
 
-        $httpErrorCode = $this->toHttpStatusCode($code);
+        $httpErrorCode = ApiHandle::toHttpStatusCode($code);
 
         return new JsonResponse(
-            $this->format($code, $this->getMessage($message, $messageContext), $this->body),
+            $this->format($code, ApiHandle::getMessage($message, $messageContext), $this->body),
             $httpErrorCode,
             $this->headers
         );
     }
-
-    /**
-     * 设置响应实例
-     *
-     * @param ResponseFactory $response
-     *
-     * @return void
-     */
-    public function setResponseInstance($response)
-    {
-        $this->response = $response;
-    }
-
+    
     /**
      * @param null  $codeOrName
      * @param array $data
      *
      * @return mixed
      */
-    public function getMessage($codeOrName = null, $data = [])
+    public static function getMessage($codeOrName = null, $data = [])
     {
         if (is_null($codeOrName)) {
-            $codeOrName = ApiHandle::$apiMessages[self::DEFAULT_ERROR_CODE];
+            $codeOrName = self::$apiMessages[self::DEFAULT_ERROR_CODE];
         } else {
-            $codeOrName = isset(ApiHandle::$apiMessages[$codeOrName]) ? ApiHandle::$apiMessages[$codeOrName] : $codeOrName;
+            $codeOrName = isset(self::$apiMessages[$codeOrName]) ? self::$apiMessages[$codeOrName] : $codeOrName;
         }
 
         return trans(config('app.api-message-trans') . '.api-messages.' . $codeOrName, $data);
@@ -181,9 +164,9 @@ class ApiHandle implements ApiHandleContract
      *
      * @return int
      */
-    public function toHttpStatusCode($code)
+    public static function toHttpStatusCode($code)
     {
-        return isset(ApiHandle::$codeMap[$code]) ? ApiHandle::$codeMap[$code] : self::DEFAULT_ERROR_HTTP_CODE;
+        return isset(self::$codeMap[$code]) ? self::$codeMap[$code] : self::DEFAULT_ERROR_HTTP_CODE;
     }
 
     /**

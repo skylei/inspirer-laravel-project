@@ -26,5 +26,7 @@ class ResponseFactory extends LaravelResponseFactory
     public function api($body)
     {
         $this->apiHandle->setResponseInstance($this);
+        
+        return $this->apiHandle->setBody($body);
     }
 }
