@@ -11,6 +11,8 @@ var elixir = require('laravel-elixir');
  |
  */
 
-elixir(function(mix) {
-    mix.sass('app.scss');
+elixir(function (mix) {
+    mix.sass('app.scss', 'public/assets/common/css')
+       .styles(['inspirer-blog/admin/login.css'], 'public/assets/inspirer-blog/admin/css/login.css')
+       .version(['assets/common/css/app.css', 'assets/inspirer-blog/admin/css/login.css']);
 });

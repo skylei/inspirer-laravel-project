@@ -1,0 +1,8 @@
+.login-bg {
+    width: 100%;
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("/assets/inspirer-blog/admin/images/login-bg-0.jpg");
+}

@@ -25,4 +25,9 @@ class GateController extends Controller
             return back()->withErrors(response_message('200001'));
         }
     }
+
+    public function gate()
+    {
+        return view('inspirer-blog.admin.gate');
+    }
 }

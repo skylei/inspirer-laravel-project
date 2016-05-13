@@ -7,7 +7,7 @@
  */
 use Illuminate\Routing\Router;
 
-Route::group(['namespace' => 'Admin'], function (Router $router) {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function (Router $router) {
     $router->post('login', ['uses' => 'GateController@login', 'as' => 'inspirer-blog.admin.login']);
     $router->get('login', ['uses' => 'GateController@gate', 'as' => 'inspirer-blog.admin.gate']);
     
