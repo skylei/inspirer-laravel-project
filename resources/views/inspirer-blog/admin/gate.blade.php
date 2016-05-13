@@ -8,11 +8,22 @@
 </head>
 <body>
 <div class="admin-gate">
-    <div class="row style-reset">
-        <div class="col-md-6 style-reset">
+    <div class="row border-reset">
+        <div class="col-md-6 border-reset">
             <div class="login-bg"></div>
         </div>
-        <div class="col-md-6 style-reset login-container"></div>
+        <div class="col-md-6 border-reset login-container">
+            <form action="{{ route('inspirer-blog.admin.login') }}" method="post" class="form-inline">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" placeholder="Input your username" id="username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="Input your password" id="password" class="form-control">
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 </body>
