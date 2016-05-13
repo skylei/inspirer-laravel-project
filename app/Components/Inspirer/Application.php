@@ -10,6 +10,7 @@ namespace App\Components\Inspirer;
 
 use App\Components\Inspirer\Http\Request;
 use Illuminate\Events\EventServiceProvider;
+use App\Components\Inspirer\Providers\RoutingServiceProvider;
 use Illuminate\Foundation\Application as Laravel;
 
 class Application extends Laravel

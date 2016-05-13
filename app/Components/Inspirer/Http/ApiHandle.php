@@ -35,12 +35,12 @@ class ApiHandle implements ApiHandleContract
     /**
      * @var
      */
-    protected static $codeMap;
+    protected static $codeMap = [];
 
     /**
      * @var
      */
-    protected static $apiMessages;
+    protected static $apiMessages = [];
 
     /**
      * @var array
@@ -173,7 +173,7 @@ class ApiHandle implements ApiHandleContract
             $codeOrName = isset(ApiHandle::$apiMessages[$codeOrName]) ? ApiHandle::$apiMessages[$codeOrName] : $codeOrName;
         }
 
-        return trans(config('app.api-message-trans') . '.' . $codeOrName, $data);
+        return trans(config('app.api-message-trans') . '.api-messages.' . $codeOrName, $data);
     }
 
     /**

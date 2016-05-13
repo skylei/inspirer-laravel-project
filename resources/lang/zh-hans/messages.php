@@ -13,4 +13,10 @@ return [
             'attempt-failed' => '账户 %s 于 %s 尝试登录失败',
         ],
     ],
+
+    'api-messages' => [
+        'success'                  => '操作成功',
+        'request-or-operate-error' => '请求或操作失败',
+        'unknown-error'            => '服务器未知错误',
+    ],
 ];
